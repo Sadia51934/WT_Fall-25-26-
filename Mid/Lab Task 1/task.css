@@ -5,8 +5,8 @@ body {
     padding: 0;
 }
 
-h3 {
-    color:#0077b6;
+h2 {
+    color:#0b2c7e;
     text-align: center;
     margin-top: 30px;
     font-size: 24px;
@@ -14,16 +14,14 @@ h3 {
 
 form {
     width: 400px;
-    background-color:rgb(255, 233, 207);
+    background-color:rgb(248, 235, 220);
     padding: 25px 40px;
     border-radius: 15px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin: 30px auto;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
 }
 
 td {
@@ -58,16 +56,13 @@ h3 {
 }
 
 button {
-    background-color: #052630;
+    background-color:rgb(32, 32, 141);
     color: white;
     font-size: 16px;
     font-weight: bold;
-    border: none;
     border-radius: 8px;
     padding: 10px 20px;
-    cursor: pointer;
     width: 100%;
     margin-top: 15px;
-    transition: background-color 0.3s;
 }
 
