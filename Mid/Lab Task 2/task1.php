@@ -30,17 +30,6 @@
 
   </form>
 
-  <h2>Course Selection</h2>
-
-  <form onsubmit="return false;">
-    <label>Course Name:</label>
-    <input type="text" id="courseInput" placeholder="Enter course name">
-
-    <button onclick="addCourse()">Add Course</button>
-  </form>
-
-  <ul id="courseList"></ul>
- 
   <script>
     function handleSubmit() {
       // Get values from form
@@ -81,6 +70,49 @@
       return false;
     }
   </script>
- 
+
+  <h2>Course Selection</h2>
+  <form>
+  <label>Course Name:</label>
+  <input type="text" id="courseInput">
+
+  <button type="button" onclick="addCourse()">Add Course</button>
+
+  <div id="courseList"></div>
+  </form>
+  <script>
+  function addCourse() {
+    let courseName = document.getElementById("courseInput").value.trim();
+
+    if (courseName === "") {
+      alert("Please enter a course name.");
+      return;
+    }
+
+    // Create course item container
+    let courseItem = document.createElement("div");
+    courseItem.className = "course-item";
+
+    // Add the course name
+    let text = document.createElement("span");
+    text.textContent = courseName;
+    courseItem.appendChild(text);
+
+    // Add delete button
+    let delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.className = "delete-btn";
+    delBtn.onclick = function () {
+      courseItem.remove();
+    };
+    courseItem.appendChild(delBtn);
+
+    // Add to list
+    document.getElementById("courseList").appendChild(courseItem);
+
+    // Clear input
+    document.getElementById("courseInput").value = "";
+  }
+</script>
 </body>
 </html>
