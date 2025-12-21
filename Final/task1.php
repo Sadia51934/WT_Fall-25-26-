@@ -8,9 +8,9 @@
 
 <?php
 
-$name = $email = $dob = $age = "";
-$nameerror = $emailerror = $doberror = $ageerror = $checkboxerror = $radioerror = "";
-$hobbies = $activities = "";
+$name = $email = $dob = "";
+$nameerror = $emailerror = $doberror = $ageerror = $checkboxerror = $radioerror = $degreeerror = $bloodgrouperror = "";
+$gender = $degree = $bloodgroup = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -58,20 +58,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (empty($_POST["hobbies"])) {
-        $checkboxerror = "At least one hobby must be selected.";
+    if (empty($_POST["degree"]) || count($_POST["degree"]) < 2) {
+        $degreeerror = "Please select at least two degrees.";
     } else {
-        $hobbies = $_POST["hobbies"];
+        $degree = $_POST["degree"];
     }
 
-    if (empty($_POST["activities"]) || count($_POST["activities"]) < 2) {
-        $checkboxerror = "At least two activities must be selected.";
+    if (empty($_POST["bloodgroup"])) {
+        $bloodgrouperror = "Please select a blood group.";
     } else {
-        $activities = $_POST["activities"];
+        $bloodgroup = $_POST["bloodgroup"];
     }
 
     if (empty($_POST["gender"])) {
-        $radioerror = "Gender must be selected.";
+        $radioerror = "Please select a gender.";
     } else {
         $gender = $_POST["gender"];
     }
@@ -100,27 +100,34 @@ function text_input($data)
     <span style="color:red"><?php echo $doberror; ?></span>
     <br><br>
 
-    Select Hobbies (at least one):
-    <br>
-    <input type="checkbox" name="hobbies[]" value="Reading"> Reading
-    <input type="checkbox" name="hobbies[]" value="Traveling"> Traveling
-    <input type="checkbox" name="hobbies[]" value="Gaming"> Gaming
-    <span style="color:red"><?php echo $checkboxerror; ?></span>
-    <br><br>
-
-    Select Activities (at least two):
-    <br>
-    <input type="checkbox" name="activities[]" value="Football"> Football
-    <input type="checkbox" name="activities[]" value="Basketball"> Basketball
-    <input type="checkbox" name="activities[]" value="Swimming"> Swimming
-    <span style="color:red"><?php echo $checkboxerror; ?></span>
-    <br><br>
-
     Gender:
-    <input type="radio" name="gender" value="Male"> Male
-    <input type="radio" name="gender" value="Female"> Female
-    <input type="radio" name="gender" value="Other"> Other
+    <input type="radio" name="gender" value="Male" <?php echo ($gender == "Male" ? "checked" : ""); ?>> Male
+    <input type="radio" name="gender" value="Female" <?php echo ($gender == "Female" ? "checked" : ""); ?>> Female
+    <input type="radio" name="gender" value="Other" <?php echo ($gender == "Other" ? "checked" : ""); ?>> Other
     <span style="color:red"><?php echo $radioerror; ?></span>
+    <br><br>
+
+    Degree (Select at least two):
+    <input type="checkbox" name="degree[]" value="SSC" <?php echo (in_array("SSC", $degree) ? "checked" : ""); ?>> SSC
+    <input type="checkbox" name="degree[]" value="HSC" <?php echo (in_array("HSC", $degree) ? "checked" : ""); ?>> HSC
+    <input type="checkbox" name="degree[]" value="BSc" <?php echo (in_array("BSc", $degree) ? "checked" : ""); ?>> BSc
+    <input type="checkbox" name="degree[]" value="MSc" <?php echo (in_array("MSc", $degree) ? "checked" : ""); ?>> MSc
+    <span style="color:red"><?php echo $degreeerror; ?></span>
+    <br><br>
+
+    Blood Group:
+    <select name="bloodgroup">
+        <option value=""> </option>
+        <option value="A+" <?php echo ($bloodgroup == "A+" ? "selected" : ""); ?>>A+</option>
+        <option value="B+" <?php echo ($bloodgroup == "B+" ? "selected" : ""); ?>>B+</option>
+        <option value="O+" <?php echo ($bloodgroup == "O+" ? "selected" : ""); ?>>O+</option>
+        <option value="AB+" <?php echo ($bloodgroup == "AB+" ? "selected" : ""); ?>>AB+</option>
+        <option value="A-" <?php echo ($bloodgroup == "A-" ? "selected" : ""); ?>>A-</option>
+        <option value="B-" <?php echo ($bloodgroup == "B-" ? "selected" : ""); ?>>B-</option>
+        <option value="O-" <?php echo ($bloodgroup == "O-" ? "selected" : ""); ?>>O-</option>
+        <option value="AB-" <?php echo ($bloodgroup == "AB-" ? "selected" : ""); ?>>AB-</option>
+    </select>
+    <span style="color:red"><?php echo $bloodgrouperror; ?></span>
     <br><br>
 
     <input type="submit" value="Submit">
@@ -128,13 +135,13 @@ function text_input($data)
 
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($nameerror) && empty($emailerror) && empty($doberror) && empty($checkboxerror) && empty($radioerror)) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($nameerror) && empty($emailerror) && empty($doberror) && empty($degreeerror) && empty($bloodgrouperror) && empty($radioerror)) {
     echo "<br>The Name is: " . $name;
     echo "<br>The Email is: " . $email;
     echo "<br>The Date of Birth is: " . $dob;
-    echo "<br>Selected Hobbies: " . implode(", ", $hobbies);
-    echo "<br>Selected Activities: " . implode(", ", $activities);
     echo "<br>Gender: " . $gender;
+    echo "<br>Degrees: " . implode(", ", $degree);
+    echo "<br>Blood Group: " . $bloodgroup;
 }
 ?>
 
