@@ -125,3 +125,29 @@ body {
 }
  
 /* Search End */
+
+/* Footer Start*/
+ 
+footer {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    padding: 50px 20px;
+    margin-top: 50px;
+}
+ 
+ 
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+}
+ 
+.footer-section {
+    width: 32%;
+    min-width: 200px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+}
+ 
