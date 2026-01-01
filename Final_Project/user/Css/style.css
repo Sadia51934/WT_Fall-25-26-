@@ -109,3 +109,19 @@ body {
     border-radius: 5px 0 0 5px;
     outline: none;
 }
+.search-btn {
+    width: 60px;
+    background-color: #2575fc;
+    border: 1px solid #2575fc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.search-icon {
+    width: 25px;
+    height: 25px;
+}
+ 
+/* Search End */
