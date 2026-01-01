@@ -1,6 +1,6 @@
 <?php
 // booklist.php
-include "../config.php"; // adjust path if needed
+include "../Model/dbcon.php"; // adjust path if needed
 
 // Fetch all books
 $result = mysqli_query($conn, "SELECT * FROM books");
