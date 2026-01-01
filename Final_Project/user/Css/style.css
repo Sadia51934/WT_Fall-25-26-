@@ -150,4 +150,20 @@ footer {
     padding: 20px;
     border-radius: 12px;
 }
+.footer-section h3,h4 {
+    margin-bottom: 12px;
+    color: #ffffff;
+}
  
+ 
+.footer-section p, a {
+    font-size: 14px;
+    color: #cbd5e1;
+}
+ 
+ 
+.footer-section a:hover {
+    color: #4dabf7;
+}
+ 
+/* Footer End  */
