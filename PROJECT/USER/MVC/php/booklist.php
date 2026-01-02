@@ -59,7 +59,7 @@ $result = mysqli_query($conn, $query);
     <?php } ?>
 </div>
 
-<!-- 📚 BOOK LIST -->
+<!--BOOK LIST-->
 <div class="book-grid">
 <?php while ($book = mysqli_fetch_assoc($result)) { ?>
     <div class="book">
