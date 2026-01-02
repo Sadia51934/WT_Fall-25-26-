@@ -1,14 +1,13 @@
 <?php
+session_start();
 include("../Model/dbcon.php");
 
-// Fetch all books
 $result = mysqli_query($conn, "SELECT * FROM books");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Book List - BookZone</title>
     <link rel="stylesheet" href="../Css/booklist.css">
 </head>
@@ -20,29 +19,27 @@ $result = mysqli_query($conn, "SELECT * FROM books");
 <?php while($book = mysqli_fetch_assoc($result)) { ?>
     <div class="book">
         <img src="../Picture/<?php echo $book['image']; ?>" alt="<?php echo $book['title']; ?>">
+
         <h3>
-            <a href="bookdetails.php?id=<?php echo $book['id']; ?>" style="text-decoration:none; color:black;">
+            <a href="bookdetails.php?id=<?php echo $book['id']; ?>">
                 <?php echo $book['title']; ?>
             </a>
         </h3>
-        <p><strong>Author:</strong> <?php echo $book['author']; ?></p>
-        <p><strong>Price:</strong> $<?php echo $book['final_price']; ?></p>
-        <p><strong>Status:</strong> <?php echo $book['status']; ?></p>
-        <button class="btn cart" onclick="addToCart('<?php echo $book['title']; ?>')">Add to Cart</button>
-        <button class="btn wishlist" onclick="addToWishlist('<?php echo $book['title']; ?>')">Wishlist</button>
+
+        <p><b>Author:</b> <?php echo $book['author']; ?></p>
+        <p><b>Price:</b> ৳<?php echo $book['final_price']; ?></p>
+        <p><b>Status:</b> <?php echo $book['status']; ?></p>
+
+        <!-- ADD TO CART FORM -->
+        <form method="post" action="add_to_cart.php">
+            <input type="hidden" name="id" value="<?php echo $book['id']; ?>">
+            <input type="hidden" name="title" value="<?php echo $book['title']; ?>">
+            <input type="hidden" name="price" value="<?php echo $book['final_price']; ?>">
+            <input type="submit" name="add_cart" value="Add to Cart">
+        </form>
     </div>
 <?php } ?>
 </div>
-
-<script>
-function addToCart(bookName) {
-    alert(bookName + " added to cart (demo)");
-}
-
-function addToWishlist(bookName) {
-    alert(bookName + " added to wishlist (demo)");
-}
-</script>
 
 </body>
 </html>
