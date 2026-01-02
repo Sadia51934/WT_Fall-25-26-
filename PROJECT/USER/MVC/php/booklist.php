@@ -59,13 +59,14 @@ $result = mysqli_query($conn, $query);
     <?php } ?>
 </div>
 
-<!--BOOK LIST-->
+<!--BOOK LIST -->
 <div class="book-grid">
 <?php while ($book = mysqli_fetch_assoc($result)) { ?>
     <div class="book">
         <img src="../Picture/<?php echo $book['image']; ?>">
 
-        <h3><?php echo $book['title']; ?></h3>
+        <h3><a href="bookdetails.php?id=<?php echo $book['id']; ?>">
+            <?php echo $book['title']; ?> </a> </h3>
         <p><b>Author:</b> <?php echo $book['author']; ?></p>
         <p class="price">৳<?php echo $book['final_price']; ?></p>
         <p class="status"><?php echo $book['status']; ?></p>
