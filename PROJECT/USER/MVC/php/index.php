@@ -40,7 +40,7 @@ if (isset($_SESSION["username"])) {
 
     <nav class="nav">
         <a href="../php/index.php">Home</a>
-        <a href="../php/books.php">Books</a>
+        <a href="../php/booklist.php">Books</a>
 
         <?php if (empty($loggedUser)) { ?>
             <!-- If no user logged in, show Login -->
@@ -62,7 +62,7 @@ if (isset($_SESSION["username"])) {
     <div class="banner-content">
         <h1>Discover Your Next Favorite Book</h1>
         <p>Explore new arrivals and special discounts every week!</p>
-        <a href="#" id="buyNowBtn" class="banner-btn">Buy Now</a>
+        <a href="../php/booklist.php" id="buyNowBtn" class="banner-btn">Buy Now</a>
     </div>
 </section>
 
