@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+/* CHECK LOGIN FIRST */
+if (!isset($_SESSION['username'])) {
+    // Optional: message after redirect
+    $_SESSION['login_error'] = "Please login to add books to cart";
+    header("Location: login.php");
+    exit();
+}
+
 /* Create cart if not exists */
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
@@ -8,6 +16,7 @@ if (!isset($_SESSION['cart'])) {
 
 /* Add item to cart */
 if (isset($_POST['id'], $_POST['title'], $_POST['price'])) {
+
     $id = $_POST['id'];
     $title = $_POST['title'];
     $price = $_POST['price'];
@@ -27,11 +36,13 @@ if (isset($_POST['id'], $_POST['title'], $_POST['price'])) {
             break;
         }
     }
+
     if (!$found) {
         $_SESSION['cart'][] = $item;
     }
 }
 
+/* Redirect to cart page */
 header("Location: view_cart.php");
 exit();
 ?>
