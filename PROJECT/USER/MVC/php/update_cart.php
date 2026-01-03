@@ -6,44 +6,36 @@ if (!isset($_SESSION['cart'])) {
     exit();
 }
 
-if (isset($_GET['action']) && isset($_GET['id'])) {
+$action = $_GET['action'];
+$id = $_GET['id'] ?? '';
 
-    $id = $_GET['id'];
+foreach ($_SESSION['cart'] as $key => &$item) {
 
-    foreach ($_SESSION['cart'] as $key => &$item) {
+    if ($item['id'] == $id) {
 
-        if ($item['id'] == $id) {
-
-            /* Increase quantity */
-            if ($_GET['action'] == 'increase') {
-                $item['qty']++;
-            }
-
-            /* Decrease quantity */
-            if ($_GET['action'] == 'decrease') {
-                if ($item['qty'] > 1) {
-                    $item['qty']--;
-                } else {
-                    unset($_SESSION['cart'][$key]); // remove if qty = 0
-                }
-            }
-
-            /* Remove item */
-            if ($_GET['action'] == 'remove') {
-                unset($_SESSION['cart'][$key]);
-            }
-
-            break;
+        if ($action == "increase") {
+            $item['qty']++;
         }
-    }
 
-    $_SESSION['cart'] = array_values($_SESSION['cart']); // reindex
+        if ($action == "decrease") {
+            if ($item['qty'] > 1) {
+                $item['qty']--;
+            }
+        }
+
+        if ($action == "remove") {
+            unset($_SESSION['cart'][$key]);
+        }
+
+        break;
+    }
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'cancel') {
+if ($action == "cancel") {
     unset($_SESSION['cart']);
 }
 
+$_SESSION['cart'] = array_values($_SESSION['cart']);
+
 header("Location: view_cart.php");
 exit();
-?>

@@ -93,7 +93,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
 
 <!-- Latest Arrivals -->
 <section class="book-section">
-    <h2>📚 Latest Arrivals</h2>
+    <h2>Latest Arrivals</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $latestBooks->fetch_assoc()) { ?>
@@ -101,7 +101,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
                 <img src="../Picture/<?php echo $book['image']; ?>" alt="">
                 <h4><?php echo htmlspecialchars($book['title']); ?></h4>
                 <p>৳<?php echo number_format($book['price'],2); ?></p>
-                <a href="booklist.php" class="btn">View</a>
+                <a href="bookdetails.php?id=<?php echo $book['id']; ?>" class="btn">View</a>
             </div>
             <?php } ?>
         </div>
@@ -110,7 +110,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
 
 <!-- Popular Books -->
 <section class="book-section">
-    <h2>🔥 Popular Books</h2>
+    <h2>Popular Books</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $popularBooks->fetch_assoc()) { ?>
@@ -119,7 +119,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
                 <h4><?php echo htmlspecialchars($book['title']); ?></h4>
                 <p>৳<?php echo number_format($book['price'],2); ?></p>
                 <small>Sold: <?php echo $book['total_sold']; ?> times</small>
-                <a href="booklist.php" class="btn">View</a>
+                <a href="bookdetails.php?id=<?php echo $book['id']; ?>" class="btn">View</a>
             </div>
             <?php } ?>
         </div>
@@ -128,7 +128,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
 
 <!-- Discount Books -->
 <section class="book-section">
-    <h2>💸 Discount Books</h2>
+    <h2>Discount Books</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $discountBooks->fetch_assoc()) { 
@@ -140,7 +140,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
                 <h4><?php echo htmlspecialchars($book['title']); ?></h4>
                 <p class="old-price">৳<?php echo number_format($book['price'],2); ?></p>
                 <p class="new-price">৳<?php echo number_format($finalPrice,2); ?></p>
-                <a href="booklist.php" class="btn">View</a>
+                <a href="bookdetails.php?id=<?php echo $book['id']; ?>" class="btn">View</a>
             </div>
             <?php } ?>
         </div>

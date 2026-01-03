@@ -4,26 +4,27 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-
+ 
 body {
-    background: #a8caed;
+    background: #eef4fb;
     padding: 20px;
 }
-
+ 
 /* Title */
 .page-title {
     text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: #333;
 }
-
+ 
 /* Search */
 .search-section {
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
 }
-
+ 
 .search-container {
     display: flex;
     width: 60%;
@@ -32,99 +33,100 @@ body {
     border-radius: 8px;
     overflow: hidden;
 }
-
+ 
 .search-bar {
     flex: 1;
     padding: 12px;
     border: none;
     outline: none;
 }
-
+ 
 .search-btn {
     width: 55px;
     background: #2575fc;
     border: none;
     cursor: pointer;
 }
-
+ 
 .search-btn img {
     width: 22px;
 }
-
-/* Category Section */
+ 
+/* Category */
 .category-section {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 40px;
+    text-align: center;
+    margin-bottom: 30px;
 }
-
+ 
 .category-btn {
-    padding: 8px 18px;
-    background: rgb(255, 254, 254);
-    border: 1px solid #020406;
-    color: #030405;
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    background: white;
+    border: 1px solid #4a90e2;
+    color: #4a90e2;
     border-radius: 20px;
     text-decoration: none;
     font-size: 14px;
-    transition: 0.3s;
 }
-
+ 
 .category-btn:hover {
-    background: #424f66;
+    background: #4a90e2;
     color: white;
 }
-
-/* Book Grid */
+ 
+/* Book List */
 .book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    text-align: center;
 }
-
+ 
 /* Book Card */
 .book {
-    background: rgb(245, 215, 189);
+    display: inline-block;
+    width: 200px;
+    background: white;
     padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top;
 }
-
+ 
 .book img {
-    width: 120px;
-    height: 170px;
+    width: 100px;
+    height: 150px;
     object-fit: cover;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
-
+ 
 .book h3 {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
-
+ 
 .price {
-    color: #03070d;
-    font-size: 18px;
+    color: #4a90e2;
+    font-size: 16px;
     font-weight: bold;
 }
-
+ 
 .status {
     color: green;
+    font-size: 14px;
+    margin-bottom: 8px;
 }
-
-/* Cart Button */
+ 
+/* Button */
 .cart-btn {
-    margin-top: 10px;
     width: 100%;
-    padding: 10px;
-    background: #3abfdd;
-    color: rgb(17, 16, 16);
+    padding: 8px;
+    background: #4a90e2;
+    color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
 }
-
+ 
 .cart-btn:hover {
-    background: #2777b0;
+    background: #357abd;
 }

@@ -3,7 +3,6 @@ session_start();
 
 /* CHECK LOGIN FIRST */
 if (!isset($_SESSION['username'])) {
-    // Optional: message after redirect
     $_SESSION['login_error'] = "Please login to add books to cart";
     header("Location: login.php");
     exit();
@@ -11,38 +10,37 @@ if (!isset($_SESSION['username'])) {
 
 /* Create cart if not exists */
 if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
+    $_SESSION['cart'] = [];
 }
 
 /* Add item to cart */
-if (isset($_POST['id'], $_POST['title'], $_POST['price'])) {
+if (!empty($_POST['id']) && !empty($_POST['title']) && isset($_POST['price'])) {
 
     $id = $_POST['id'];
-    $title = $_POST['title'];
-    $price = $_POST['price'];
-
-    $item = array(
-        "id" => $id,
-        "title" => $title,
-        "price" => $price,
-        "qty" => 1
-    );
+    $title = htmlspecialchars($_POST['title']);
+    $price = (float) $_POST['price'];
 
     $found = false;
-    foreach ($_SESSION['cart'] as &$cartItem) {
-        if ($cartItem['id'] == $id) {
-            $cartItem['qty']++;
+
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['id'] == $id) {
+            $item['qty']++;
             $found = true;
             break;
         }
     }
 
     if (!$found) {
-        $_SESSION['cart'][] = $item;
+        $_SESSION['cart'][] = [
+            "id" => $id,
+            "title" => $title,
+            "price" => $price,
+            "qty" => 1
+        ];
     }
 }
 
-/* Redirect to cart page */
+/* Redirect to cart */
 header("Location: view_cart.php");
 exit();
 ?>

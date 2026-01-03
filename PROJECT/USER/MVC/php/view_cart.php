@@ -1,98 +1,87 @@
 <?php
 session_start();
+
+// Initialize cart if not set
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>My Cart</title>
     <link rel="stylesheet" href="../Css/view_cart.css">
 </head>
 <body>
 
 <div class="container">
-    <h2 class="page-title">🛒 My Cart</h2>
+    <h2 class="page-title">My Cart</h2>
 
-<?php if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0): ?>
+    <?php if (empty($_SESSION['cart'])) { ?>
 
-    <div class="empty-cart">
-        <p>Your cart is empty</p>
-        <a href="booklist.php" class="btn primary">Continue Shopping</a>
-    </div>
+        <p class="empty-cart">Cart is empty</p>
 
-<?php else: ?>
+    <?php } else { ?>
 
-<?php
-$total = 0;
-foreach ($_SESSION['cart'] as $item):
-    $subtotal = $item['price'] * $item['qty'];
-    $total += $subtotal;
-?>
+        <?php $total = 0; ?>
 
-<div class="cart-card" id="item-<?php echo $item['id']; ?>">
+        <?php foreach ($_SESSION['cart'] as $item) { ?>
+            <?php
+                $subtotal = $item['price'] * $item['qty'];
+                $total += $subtotal;
+            ?>
 
-    <div class="cart-left">
-        <h3><?php echo htmlspecialchars($item['title']); ?></h3>
-        <p>Unit Price: ৳<?php echo number_format($item['price'],2); ?></p>
+            <div class="cart-card">
+                <div class="cart-left">
+                    <h3 class="book-title">
+                        <?= htmlspecialchars($item['title']); ?>
+                    </h3>
 
-        <div class="qty-box">
-            <button onclick="updateQty(<?php echo $item['id']; ?>, 'decrease')" class="qty-btn">−</button>
-            <span id="qty-<?php echo $item['id']; ?>"><?php echo $item['qty']; ?></span>
-            <button onclick="updateQty(<?php echo $item['id']; ?>, 'increase')" class="qty-btn">+</button>
+                    <p class="unit-price">
+                        Price: ৳<?= number_format($item['price'], 2); ?>
+                    </p>
+
+                    <div class="qty-box">
+                        <a class="qty-btn"
+                           href="update_cart.php?action=decrease&id=<?= $item['id']; ?>">−</a>
+
+                        <span class="qty">
+                            <?= $item['qty']; ?>
+                        </span>
+
+                        <a class="qty-btn"
+                           href="update_cart.php?action=increase&id=<?= $item['id']; ?>">+</a>
+                    </div>
+                </div>
+
+                <div class="cart-right">
+                    <div class="item-subtotal">
+                        ৳<?= number_format($subtotal, 2); ?>
+                    </div>
+
+                    <a class="remove-link"
+                       href="update_cart.php?action=remove&id=<?= $item['id']; ?>">
+                        Remove
+                    </a>
+                </div>
+            </div>
+
+        <?php } ?>
+
+        <div class="total">
+            Total: ৳<?= number_format($total, 2); ?>
         </div>
-    </div>
 
-    <div class="cart-right">
-        <p class="item-subtotal" id="subtotal-<?php echo $item['id']; ?>">
-            ৳<?php echo number_format($subtotal,2); ?>
-        </p>
+        <div class="cart-actions">
+            <a href="booklist.php">Continue Shopping</a>
+            <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
+            <a href="update_cart.php?action=cancel" class="cancel">Cancel Order</a>
+        </div>
 
-        <a href="update_cart.php?action=remove&id=<?php echo $item['id']; ?>" class="remove-link">
-            Remove
-        </a>
-    </div>
+    <?php } ?>
 
 </div>
-
-<?php endforeach; ?>
-
-<h3 class="total">
-    Total: ৳<span id="grandTotal"><?php echo number_format($total,2); ?></span>
-</h3>
-
-<div class="cart-actions">
-    <a href="booklist.php" class="btn secondary">Continue Shopping</a>
-    <a href="checkout.php" class="btn primary">Proceed to Payment</a>
-    <a href="update_cart.php?action=cancel" class="btn danger">Cancel Order</a>
-</div>
-
-<?php endif; ?>
-</div>
-
-<!--AJAX SCRIPT-->
-<script>
-function updateQty(id, action) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "ajax_update_cart.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onload = function () {
-        if (this.status === 200) {
-            var data = JSON.parse(this.responseText);
-
-            if (data.removed) {
-                document.getElementById("item-" + id).remove();
-            } else {
-                document.getElementById("qty-" + id).innerText = data.qty;
-                document.getElementById("subtotal-" + id).innerText = "৳" + data.subtotal;
-            }
-
-            document.getElementById("grandTotal").innerText = data.total;
-        }
-    };
-
-    xhr.send("id=" + id + "&action=" + action);
-}
-</script>
 
 </body>
 </html>
