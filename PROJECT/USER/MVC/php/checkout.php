@@ -1,47 +1,76 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Checkout</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    <link rel="stylesheet" href="../Css/checkout.css">
+    <script>
+        function togglePayment(method) {
+            document.getElementById("bkashBox").style.display = "none";
+            document.getElementById("nagadBox").style.display = "none";
+
+            if (method === "bkash") {
+                document.getElementById("bkashBox").style.display = "block";
+            }
+            if (method === "nagad") {
+                document.getElementById("nagadBox").style.display = "block";
+            }
         }
-        h2 { text-align: center; margin-bottom: 20px; }
-        form input, form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        form button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        form button:hover { background-color: #218838; }
-    </style>
+    </script>
 </head>
+
 <body>
 <div class="container">
-    <h2>Payment Details</h2>
+    <h2>Checkout</h2>
+
+    <?php
+    if (isset($_SESSION['checkout_error'])) {
+        echo "<p class='errormsg'>".$_SESSION['checkout_error']."</p>";
+        unset($_SESSION['checkout_error']);
+    }
+    ?>
+
     <form method="post" action="process_payment.php">
+
         <input type="text" name="name" placeholder="Full Name" required>
+
         <input type="text" name="mobile" placeholder="Mobile Number" required pattern="\d{10,14}">
-        <textarea name="address" placeholder="Address" rows="4" required></textarea>
-        <button type="submit">Proceed to Pay</button>
+
+        <textarea name="address" placeholder="Delivery Address" rows="4" required></textarea>
+
+        <h3>Payment Method</h3>
+
+        <label class="pay-option">
+            <input type="radio" name="payment_method" value="COD" required onclick="togglePayment('cod')">
+            Cash on Delivery
+        </label>
+
+        <label class="pay-option">
+            <input type="radio" name="payment_method" value="bKash" onclick="togglePayment('bkash')">
+            bKash
+        </label>
+
+        <label class="pay-option">
+            <input type="radio" name="payment_method" value="Nagad" onclick="togglePayment('nagad')">
+            Nagad
+        </label>
+
+        <div id="bkashBox" class="pay-box">
+            <input type="text" name="bkash_number" placeholder="bKash Number (01XXXXXXXXX)">
+        </div>
+
+        <div id="nagadBox" class="pay-box">
+            <input type="text" name="nagad_number" placeholder="Nagad Number (01XXXXXXXXX)">
+        </div>
+
+        <button type="submit">Confirm Order</button>
     </form>
 </div>
 </body>
