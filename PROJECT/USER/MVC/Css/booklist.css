@@ -118,7 +118,7 @@ body {
     margin-top: 10px;
     width: 100%;
     padding: 10px;
-    background: #2671f2;
+    background: #3abfdd;
     color: rgb(17, 16, 16);
     border: none;
     border-radius: 6px;
@@ -126,5 +126,5 @@ body {
 }
 
 .cart-btn:hover {
-    background: #3329c1;
+    background: #2777b0;
 }

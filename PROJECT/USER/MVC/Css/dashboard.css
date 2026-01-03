@@ -8,9 +8,10 @@
 body {
     background-color: #ffffff;
     color: #333;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* Header Start*/
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -18,7 +19,6 @@ body {
     padding: 15px 40px;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 .logo {
@@ -37,20 +37,6 @@ body {
     font-weight: bold;
 }
 
-/* Welcome Text Style */
-.welcome-text {
-    background-color: #2575fc; /* nice blue background */
-    color: #fff; /* text color white */
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    margin: 15px auto;
-    width: fit-content; /* only as wide as the text */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
 .nav a {
     margin-left: 20px;
     text-decoration: none;
@@ -64,16 +50,21 @@ body {
     cursor: not-allowed;
 }
 
+/* Welcome Text */
 .welcome-text {
-    color: white;
+    background-color: #2575fc;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
     font-size: 28px;
-    margin-bottom: 15px;
+    font-weight: 600;
     text-align: center;
+    margin: 15px auto 25px auto;
+    width: fit-content;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* Header End*/
-
-/* Banner start */
+/* Banner */
 .banner {
     display: flex;
     justify-content: center;
@@ -82,10 +73,9 @@ body {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: #fff;
     text-align: center;
-    position: relative;
-    overflow: hidden;
     border-radius: 15px;
     margin: 20px;
+    overflow: hidden;
 }
 
 .banner-content h1 {
@@ -105,7 +95,6 @@ body {
     padding: 12px 30px;
     font-size: 1rem;
     text-decoration: none;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-radius: 8px;
     transition: all 0.3s ease;
 }
@@ -113,9 +102,8 @@ body {
 .banner-btn:hover {
     background-color: #1e88e5;
 }
-/* Banner End */
 
-/* Search start */
+/* Search Section */
 .search-section {
     display: flex;
     justify-content: center;
@@ -133,8 +121,7 @@ body {
     width: 100%;
     padding: 12px 15px;
     font-size: 16px;
-    background-color: white;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
     outline: none;
 }
@@ -154,16 +141,99 @@ body {
     height: 25px;
 }
 
-/* Search End */
+/* Book Grid */
+.book-grid-container {
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+}
 
-/* Footer Start*/
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
 
+/* Book Card */
+.book-card {
+    flex: 0 0 200px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.book-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+    height: 40px;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.book-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.book-card .old-price {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.book-card .new-price {
+    color: #2575fc;
+    font-weight: 600;
+}
+
+.book-card .badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.book-card .btn {
+    display: inline-block;
+    margin: 10px 0 15px 0;
+    padding: 8px 20px;
+    background-color: #2575fc;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.book-card .btn:hover {
+    background-color: #1e88e5;
+}
+
+/* Footer */
 footer {
     background: linear-gradient(135deg, #1e293b, #0f172a);
     padding: 50px 20px;
-    margin-top: 50px;
 }
-
 
 .footer-content {
     display: flex;
@@ -181,21 +251,53 @@ footer {
     border-radius: 12px;
 }
 
-
 .footer-section h3,h4 {
     margin-bottom: 12px;
     color: #ffffff;
 }
-
 
 .footer-section p, a {
     font-size: 14px;
     color: #cbd5e1;
 }
 
-
 .footer-section a:hover {
     color: #4dabf7;
 }
 
-/* Footer End  */
+/* Responsive */
+@media (max-width: 768px) {
+    .book-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-container {
+        width: 90%;
+    }
+
+    .header {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .nav {
+        margin-top: 10px;
+    }
+
+    .banner {
+        height: 350px;
+    }
+
+    .banner-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .banner-content p {
+        font-size: 1rem;
+    }
+
+    .book-card img {
+        height: 200px;
+    }
+}

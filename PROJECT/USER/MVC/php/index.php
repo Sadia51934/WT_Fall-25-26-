@@ -1,8 +1,29 @@
-<?php
+<?php 
 session_start();
+include "../Db/dbregister.php";
+
+/* Latest Arrivals (last 6 books) */
+$latestBooks = $conn->query("SELECT * FROM books ORDER BY id DESC LIMIT 6");
+
+/* Discounted Books (discount > 0) */
+$discountBooks = $conn->query("SELECT * FROM books WHERE discount > 0 ORDER BY discount DESC LIMIT 6");
+
+/* Popular Books (based on orders, NOT sold_count) */
+$popularBooks = $conn->query("
+    SELECT 
+        b.id,
+        b.title,
+        b.price,
+        b.image,
+        COUNT(oi.book_id) AS total_sold
+    FROM books b
+    LEFT JOIN order_items oi ON oi.book_id = b.id
+    GROUP BY b.id
+    ORDER BY total_sold DESC
+    LIMIT 6
+");
 
 $loggedUser = "";
-
 if (isset($_SESSION["username"])) {
     $loggedUser = $_SESSION["username"];
 } elseif (isset($_COOKIE["username"])) {
@@ -22,11 +43,11 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Bookstore Management System</title>
-    <link rel="stylesheet" href="../Css/dashboard.css">
+    <link rel="stylesheet" href="../Css/dashboard.css?v=1.3">
 </head>
 <body>
 
-<!-- Header Start -->
+<!-- Header -->
 <header class="header">
     <div class="logo">
         <img src="../Picture/logo.jpg" alt="BookZone Logo">
@@ -42,28 +63,21 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
     <nav class="nav">
         <a href="../php/index.php">Home</a>
         <a href="../php/booklist.php">Books</a>
-
         <?php if (empty($loggedUser)) { ?>
-            <!-- If no user logged in, show Login -->
             <a href="../php/login.php">Login</a>
         <?php } else { ?>
-            <!-- If user is logged in, show Logout -->
             <a href="../php/logout.php">Logout</a>
         <?php } ?>
-
         <a href="#footer">Contact</a>
     </nav>
 </header>
-<!-- Header End -->
 
-<!-- Main Start -->
-<main>
-
- <section class="banner">
+<!-- Banner -->
+<section class="banner">
     <div class="banner-content">
         <h1>Discover Your Next Favorite Book</h1>
         <p>Explore new arrivals and special discounts every week!</p>
-        <a href="../php/booklist.php" id="buyNowBtn" class="banner-btn">Buy Now</a>
+        <a href="../php/booklist.php" class="banner-btn">Buy Now</a>
     </div>
 </section>
 
@@ -77,41 +91,84 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
     </div>
 </section>
 
-<section id="arrival-section"></section>
-<section class="popular-books-section"></section>
-<section class="discount-section"></section>
+<!-- Latest Arrivals -->
+<section class="book-section">
+    <h2>📚 Latest Arrivals</h2>
+    <div class="book-grid-container">
+        <div class="book-grid">
+            <?php while ($book = $latestBooks->fetch_assoc()) { ?>
+            <div class="book-card">
+                <img src="../Picture/<?php echo $book['image']; ?>" alt="">
+                <h4><?php echo htmlspecialchars($book['title']); ?></h4>
+                <p>৳<?php echo number_format($book['price'],2); ?></p>
+                <a href="booklist.php" class="btn">View</a>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</section>
 
-</main>
-<!-- Main End -->
+<!-- Popular Books -->
+<section class="book-section">
+    <h2>🔥 Popular Books</h2>
+    <div class="book-grid-container">
+        <div class="book-grid">
+            <?php while ($book = $popularBooks->fetch_assoc()) { ?>
+            <div class="book-card">
+                <img src="../Picture/<?php echo $book['image']; ?>" alt="">
+                <h4><?php echo htmlspecialchars($book['title']); ?></h4>
+                <p>৳<?php echo number_format($book['price'],2); ?></p>
+                <small>Sold: <?php echo $book['total_sold']; ?> times</small>
+                <a href="booklist.php" class="btn">View</a>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</section>
 
-<!-- Footer Start -->
+<!-- Discount Books -->
+<section class="book-section">
+    <h2>💸 Discount Books</h2>
+    <div class="book-grid-container">
+        <div class="book-grid">
+            <?php while ($book = $discountBooks->fetch_assoc()) { 
+                $finalPrice = $book['price'] - ($book['price'] * $book['discount'] / 100);
+            ?>
+            <div class="book-card">
+                <span class="badge"><?php echo $book['discount']; ?>% OFF</span>
+                <img src="../Picture/<?php echo $book['image']; ?>" alt="">
+                <h4><?php echo htmlspecialchars($book['title']); ?></h4>
+                <p class="old-price">৳<?php echo number_format($book['price'],2); ?></p>
+                <p class="new-price">৳<?php echo number_format($finalPrice,2); ?></p>
+                <a href="booklist.php" class="btn">View</a>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
 <footer id="footer">
     <div class="footer-content">
-
         <div class="footer-section">
             <h3>BookMart</h3>
             <p>© 2025 BookMart</p>
             <p>All Rights Reserved</p>
         </div>
-
         <div class="footer-section">
             <h4>Contact Info</h4>
             <p>Email: <a href="mailto:info@bookmart.com">info@bookmart.com</a></p>
             <p>Phone: +880 1234-567890</p>
             <p>Address: Dhaka, Bangladesh</p>
         </div>
-
         <div class="footer-section">
             <h4>Quick Links</h4>
             <p><a href="#">Privacy Policy</a></p>
             <p><a href="#">Terms & Conditions</a></p>
         </div>
-
     </div>
 </footer>
-<!-- Footer End -->
 
 <script src="../Javascript/dashboard.js"></script>
-
 </body>
 </html>
