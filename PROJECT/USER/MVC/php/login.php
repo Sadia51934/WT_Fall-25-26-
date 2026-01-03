@@ -1,22 +1,38 @@
 <?php
 session_start();
 
+$loginRedirectMsg = "";
+
+if (isset($_SESSION['login_error'])) {
+    $loginRedirectMsg = $_SESSION['login_error'];
+    unset($_SESSION['login_error']);
+}
+
+
 if (isset($_SESSION["username"])) {
-    header("Location: ../php/index.php");
+    if (str_starts_with($_SESSION["username"], "@admin")) {
+        header("Location: ../../../ADMIN/MVC/php/admindashboard.php"); 
+    } else {
+        header("Location: ../php/index.php");
+    }
     exit();
 }
 
-include "../Db/dbregister.php";
+include "../Db/dbregister.php"; 
+
 
 $username = "";
 $usernameError = $passwordError = "";
 $successMessage = $errorMessage = "";
 
+
 function test_input($data) {
     return trim($data);
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
 
     if (empty($_POST["username"])) {
         $usernameError = "Username is required";
@@ -32,31 +48,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($usernameError) && empty($passwordError)) {
 
-        $sql = "SELECT * FROM registereduser WHERE username='$username'";
-        $result = $conn->query($sql);
+        if (str_starts_with($username, "@admin")) {
 
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
+            $sql = "SELECT * FROM admin WHERE username='$username'";
+            $result = $conn->query($sql);
 
-            if (password_verify($password, $row['password'])) {
+            if ($result && $result->num_rows == 1) {
+                $row = $result->fetch_assoc();
 
-                $_SESSION["username"] = $username;
-                setcookie("username", $username, time() + 86400, "/");
+                if ($password === $row['password']) {
 
-                $successMessage = "Login successful! Redirecting to dashboard...";
+                    $_SESSION["username"] = $username;
+                    setcookie("username", $username, time() + 86400, "/");
 
-                // JavaScript redirect after 2 seconds
-                echo "<script>
-                    setTimeout(function() {
-                        window.location.href = '../php/index.php';
-                    }, 2000);
-                </script>";
+                    $successMessage = "Admin login successful! Redirecting...";
+                    echo "<script>
+                        setTimeout(function() {
+                            window.location.href = '../../../ADMIN/MVC/php/admindashboard.php';
+                        }, 2000);
+                    </script>";
 
+                } else {
+                    $errorMessage = "Invalid admin password";
+                }
             } else {
-                $errorMessage = "Invalid password";
+                $errorMessage = "Admin username not found";
             }
+
         } else {
-            $errorMessage = "Username not found";
+            $sql = "SELECT * FROM registereduser WHERE username='$username'";
+            $result = $conn->query($sql);
+
+            if ($result && $result->num_rows == 1) {
+                $row = $result->fetch_assoc();
+
+                if (password_verify($password, $row['password'])) {
+
+                    $_SESSION["username"] = $username;
+                    setcookie("username", $username, time() + 86400, "/");
+
+                    $successMessage = "User login successful! Redirecting...";
+                    echo "<script>
+                        setTimeout(function() {
+                            window.location.href = '../php/index.php';
+                        }, 2000);
+                    </script>";
+
+                } else {
+                    $errorMessage = "Invalid password";
+                }
+            } else {
+                $errorMessage = "Username not found";
+            }
         }
     }
 }
@@ -67,12 +110,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../Css/login.css">
+    <link rel="stylesheet" href="../Css/login.css"> 
 </head>
 <body>
 
 <div class="container">
     <h1>Login</h1>
+
+    <?php
+    if (!empty($loginRedirectMsg)) {
+    echo "<p class='errormsg'>$loginRedirectMsg</p>";}
+    ?>
 
     <form method="post" action="">
         <div class="form-group">

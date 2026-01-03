@@ -1,10 +1,4 @@
 <?php
-$loggedUser = "";
-
-if (isset($_GET['user'])) {
-    $loggedUser = $_GET['user'];
-}
-
 session_start();
 
 $loggedUser = "";
@@ -14,7 +8,14 @@ if (isset($_SESSION["username"])) {
 } elseif (isset($_COOKIE["username"])) {
     $loggedUser = $_COOKIE["username"];
 }
+
+// Redirect admin trying to access user dashboard
+if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
+    header("Location: ../../../ADMIN/MVC/php/admindashboard.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
