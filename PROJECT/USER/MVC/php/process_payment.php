@@ -42,7 +42,7 @@ foreach ($_SESSION['cart'] as $item) {
     $total += $item['price'] * $item['qty'];
 }
 
-/* Insert into orders table */
+/* Insert into orders */
 $sql = "INSERT INTO orders 
         (username, name, mobile, address, payment_method, payment_number, total_amount)
         VALUES 
@@ -52,10 +52,9 @@ if (!$conn->query($sql)) {
     die("Order insert failed");
 }
 
-/* Get last inserted order_id */
 $order_id = $conn->insert_id;
 
-/* Insert each cart item into order_items */
+/* Insert order items */
 foreach ($_SESSION['cart'] as $item) {
 
     $book_id = $item['id'];
@@ -73,10 +72,30 @@ foreach ($_SESSION['cart'] as $item) {
 
 /* Clear cart */
 unset($_SESSION['cart']);
-
-echo "<h2>Order Placed Successfully!</h2>";
-echo "<p>Order ID: <b>$order_id</b></p>";
-echo "<p>Payment Method: $method</p>";
-echo "<p>Total Amount: ৳$total</p>";
-echo "<a href='../php/index.php'>Back to Home</a>";
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Successful</title>
+    <link rel="stylesheet" href="../Css/process_payment.css">
+</head>
+
+<body>
+
+<div class="success-card">
+    <div class="check">✔</div>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you, <b><?php echo htmlspecialchars($name); ?></b></p>
+
+    <div class="details">
+        <center><p><span>Order ID:</span> <?php echo $order_id; ?></p></center>
+        <center><p><span>Payment Method:</span> <?php echo htmlspecialchars($method); ?></p></center>
+        <center><p><span>Total Amount:</span> ৳<?php echo number_format($total, 2); ?></p></center>
+    </div>
+
+    <a href="../php/index.php" class="btn">Back to Home</a>
+</div>
+
+</body>
+</html>

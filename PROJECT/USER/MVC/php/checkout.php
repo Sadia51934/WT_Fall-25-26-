@@ -7,10 +7,12 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Checkout</title>
     <link rel="stylesheet" href="../Css/checkout.css">
+
     <script>
         function togglePayment(method) {
             document.getElementById("bkashBox").style.display = "none";
@@ -27,51 +29,68 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body>
-<div class="container">
-    <h2>Checkout</h2>
 
-    <?php
-    if (isset($_SESSION['checkout_error'])) {
-        echo "<p class='errormsg'>".$_SESSION['checkout_error']."</p>";
-        unset($_SESSION['checkout_error']);
-    }
-    ?>
+<div class="checkout-wrapper">
 
-    <form method="post" action="process_payment.php">
+    <div class="checkout-card">
+        <h2>Checkout</h2>
 
-        <input type="text" name="name" placeholder="Full Name" required>
+        <?php
+        if (isset($_SESSION['checkout_error'])) {
+            echo "<p class='errormsg'>".$_SESSION['checkout_error']."</p>";
+            unset($_SESSION['checkout_error']);
+        }
+        ?>
 
-        <input type="text" name="mobile" placeholder="Mobile Number" required pattern="\d{10,14}">
+        <form method="post" action="process_payment.php">
 
-        <textarea name="address" placeholder="Delivery Address" rows="4" required></textarea>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Full Name" required>
+            </div>
 
-        <h3>Payment Method</h3>
+            <div class="form-group">
+                <input type="text" name="mobile" placeholder="Mobile Number" required pattern="\d{10,14}">
+            </div>
 
-        <label class="pay-option">
-            <input type="radio" name="payment_method" value="COD" required onclick="togglePayment('cod')">
-            Cash on Delivery
-        </label>
+            <div class="form-group">
+                <textarea name="address" placeholder="Delivery Address" rows="4" required></textarea>
+            </div>
 
-        <label class="pay-option">
-            <input type="radio" name="payment_method" value="bKash" onclick="togglePayment('bkash')">
-            bKash
-        </label>
+            <h3>Payment Method</h3>
 
-        <label class="pay-option">
-            <input type="radio" name="payment_method" value="Nagad" onclick="togglePayment('nagad')">
-            Nagad
-        </label>
+            <div class="payment-options">
 
-        <div id="bkashBox" class="pay-box">
-            <input type="text" name="bkash_number" placeholder="bKash Number (01XXXXXXXXX)">
-        </div>
+                <label class="pay-card">
+                    <input type="radio" name="payment_method" value="COD" required onclick="togglePayment('cod')">
+                    <span>💵 Cash on Delivery</span>
+                </label>
 
-        <div id="nagadBox" class="pay-box">
-            <input type="text" name="nagad_number" placeholder="Nagad Number (01XXXXXXXXX)">
-        </div>
+                <label class="pay-card">
+                    <input type="radio" name="payment_method" value="bKash" onclick="togglePayment('bkash')">
+                    <span>📱 bKash</span>
+                </label>
 
-        <button type="submit">Confirm Order</button>
-    </form>
+                <label class="pay-card">
+                    <input type="radio" name="payment_method" value="Nagad" onclick="togglePayment('nagad')">
+                    <span>📲 Nagad</span>
+                </label>
+
+            </div>
+
+            <div id="bkashBox" class="pay-box">
+                <input type="text" name="bkash_number" placeholder="bKash Number (01XXXXXXXXX)">
+            </div>
+
+            <div id="nagadBox" class="pay-box">
+                <input type="text" name="nagad_number" placeholder="Nagad Number (01XXXXXXXXX)">
+            </div>
+
+            <button type="submit" class="confirm-btn">Confirm Order</button>
+
+        </form>
+    </div>
+
 </div>
+
 </body>
 </html>

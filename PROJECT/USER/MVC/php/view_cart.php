@@ -16,7 +16,7 @@ session_start();
 
     <div class="empty-cart">
         <p>Your cart is empty</p>
-        <a href="booklist.php" class="btn primary">← Continue Shopping</a>
+        <a href="booklist.php" class="btn primary">Continue Shopping</a>
     </div>
 
 <?php else: ?>
@@ -60,8 +60,8 @@ foreach ($_SESSION['cart'] as $item):
 </h3>
 
 <div class="cart-actions">
-    <a href="booklist.php" class="btn secondary">← Continue Shopping</a>
-    <a href="checkout.php" class="btn primary">Proceed to Payment →</a>
+    <a href="booklist.php" class="btn secondary">Continue Shopping</a>
+    <a href="checkout.php" class="btn primary">Proceed to Payment</a>
     <a href="update_cart.php?action=cancel" class="btn danger">Cancel Order</a>
 </div>
 

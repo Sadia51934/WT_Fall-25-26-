@@ -33,7 +33,7 @@ $result = mysqli_query($conn, $query);
 </head>
 <body>
 
-<h2 class="page-title">Browse Books</h2>
+<h2 class="page-title">All Books</h2>
 
 <!-- SEARCH -->
 <form method="get" class="search-section">
