@@ -1,14 +1,23 @@
 <?php
 session_start();
 
+$action = $_GET['action'] ?? '';
+$id = $_GET['id'] ?? '';
+
+if ($action == "cancel") {
+    // Clear the cart
+    unset($_SESSION['cart']);
+    // Redirect to book list page
+    header("Location: booklist.php");
+    exit();
+}
+
 if (!isset($_SESSION['cart'])) {
     header("Location: view_cart.php");
     exit();
 }
 
-$action = $_GET['action'];
-$id = $_GET['id'] ?? '';
-
+// Handle increase, decrease, remove actions
 foreach ($_SESSION['cart'] as $key => &$item) {
 
     if ($item['id'] == $id) {
@@ -17,10 +26,8 @@ foreach ($_SESSION['cart'] as $key => &$item) {
             $item['qty']++;
         }
 
-        if ($action == "decrease") {
-            if ($item['qty'] > 1) {
-                $item['qty']--;
-            }
+        if ($action == "decrease" && $item['qty'] > 1) {
+            $item['qty']--;
         }
 
         if ($action == "remove") {
@@ -31,11 +38,9 @@ foreach ($_SESSION['cart'] as $key => &$item) {
     }
 }
 
-if ($action == "cancel") {
-    unset($_SESSION['cart']);
-}
-
+// Reindex cart after remove
 $_SESSION['cart'] = array_values($_SESSION['cart']);
 
+// Redirect back to cart page
 header("Location: view_cart.php");
 exit();
