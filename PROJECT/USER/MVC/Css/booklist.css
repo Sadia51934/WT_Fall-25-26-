@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #f4f6f8;
+    background: #a8caed;
     padding: 20px;
 }
 
@@ -28,7 +28,7 @@ body {
     display: flex;
     width: 60%;
     max-width: 500px;
-    border: 2px solid #2575fc;
+    border: 2px solid #000000;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -62,9 +62,9 @@ body {
 
 .category-btn {
     padding: 8px 18px;
-    background: white;
-    border: 1px solid #2575fc;
-    color: #2575fc;
+    background: rgb(255, 254, 254);
+    border: 1px solid #020406;
+    color: #030405;
     border-radius: 20px;
     text-decoration: none;
     font-size: 14px;
@@ -72,7 +72,7 @@ body {
 }
 
 .category-btn:hover {
-    background: #2575fc;
+    background: #424f66;
     color: white;
 }
 
@@ -85,7 +85,7 @@ body {
 
 /* Book Card */
 .book {
-    background: white;
+    background: rgb(245, 215, 189);
     padding: 15px;
     border-radius: 12px;
     text-align: center;
@@ -104,7 +104,7 @@ body {
 }
 
 .price {
-    color: #2575fc;
+    color: #03070d;
     font-size: 18px;
     font-weight: bold;
 }
@@ -118,13 +118,13 @@ body {
     margin-top: 10px;
     width: 100%;
     padding: 10px;
-    background: #2575fc;
-    color: white;
+    background: #2671f2;
+    color: rgb(17, 16, 16);
     border: none;
     border-radius: 6px;
     cursor: pointer;
 }
 
 .cart-btn:hover {
-    background: #1e5fd8;
+    background: #3329c1;
 }

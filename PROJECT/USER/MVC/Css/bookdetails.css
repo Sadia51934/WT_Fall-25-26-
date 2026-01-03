@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #f4f6f8;
+    background: #a8caed;
     padding: 30px;
 }
 
@@ -15,7 +15,7 @@ body {
     display: inline-block;
     margin-bottom: 20px;
     text-decoration: none;
-    color: #2575fc;
+    color: #1642d2;
     font-size: 14px;
 }
 
@@ -23,7 +23,7 @@ body {
 .details-container {
     display: flex;
     gap: 40px;
-    background: white;
+    background: rgb(197, 246, 250);
     padding: 30px;
     border-radius: 12px;
     max-width: 900px;
@@ -52,7 +52,7 @@ body {
 
 .final-price {
     font-size: 22px;
-    color: #2575fc;
+    color: #000000;
     font-weight: bold;
 }
 
@@ -65,13 +65,13 @@ body {
 .cart-btn {
     margin-top: 20px;
     padding: 12px 25px;
-    background: #2575fc;
-    color: white;
+    background: #2671f2;
+    color: rgb(14, 13, 13);
     border: none;
     border-radius: 6px;
     cursor: pointer;
 }
 
 .cart-btn:hover {
-    background: #1e5fd8;
+    background: #3329c1;
 }
