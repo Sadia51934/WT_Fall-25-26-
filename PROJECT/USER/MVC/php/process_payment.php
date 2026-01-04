@@ -84,7 +84,7 @@ unset($_SESSION['cart']);
 <body>
 
 <div class="success-card">
-    <div class="check">✔</div>
+    <div class="check">Checked Completed.</div>
     <h2>Order Placed Successfully!</h2>
     <p>Thank you, <b><?php echo htmlspecialchars($name); ?></b></p>
 

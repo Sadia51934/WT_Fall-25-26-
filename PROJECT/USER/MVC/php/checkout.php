@@ -62,12 +62,12 @@ if (!isset($_SESSION['username'])) {
 
                 <label class="pay-card">
                     <input type="radio" name="payment_method" value="COD" required onclick="togglePayment('cod')">
-                    <span>Cash on Delivery</span>
+                    <span> Cash on Delivery</span>
                 </label>
 
                 <label class="pay-card">
                     <input type="radio" name="payment_method" value="bKash" onclick="togglePayment('bkash')">
-                    <span>bKash</span>
+                    <span> bKash</span>
                 </label>
 
                 <label class="pay-card">

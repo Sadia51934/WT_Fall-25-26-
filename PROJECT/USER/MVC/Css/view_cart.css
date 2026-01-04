@@ -1,32 +1,31 @@
-/* ===== RESET ===== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== BODY ===== */
+
 body {
     font-family: "Segoe UI", Arial, sans-serif;
     background: #f4f6f8;
     color: #333;
 }
 
-/* ===== PAGE CONTAINER ===== */
 .container {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
 }
 
-/* ===== TITLE ===== */
+
 .page-title {
     text-align: center;
     font-size: 28px;
     margin-bottom: 30px;
 }
 
-/* ===== EMPTY CART ===== */
+
 .empty-cart {
     text-align: center;
     font-size: 18px;
@@ -34,7 +33,6 @@ body {
     margin-top: 40px;
 }
 
-/* ===== CART CARD ===== */
 .cart-card {
     display: flex;
     justify-content: space-between;
@@ -51,7 +49,7 @@ body {
     transform: translateY(-3px);
 }
 
-/* ===== LEFT SIDE ===== */
+
 .cart-left {
     flex: 1;
 }
@@ -66,7 +64,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* ===== QUANTITY BOX ===== */
+
 .qty-box {
     display: inline-flex;
     align-items: center;
@@ -95,7 +93,7 @@ body {
     font-weight: 600;
 }
 
-/* ===== RIGHT SIDE ===== */
+
 .cart-right {
     text-align: right;
 }
@@ -117,7 +115,7 @@ body {
     text-decoration: underline;
 }
 
-/* ===== TOTAL ===== */
+
 .total {
     text-align: right;
     font-size: 22px;
@@ -125,7 +123,7 @@ body {
     margin-top: 20px;
 }
 
-/* ===== ACTION BUTTONS ===== */
+
 .cart-actions {
     display: flex;
     justify-content: flex-end;
@@ -141,40 +139,21 @@ body {
     font-weight: 600;
 }
 
-/* Continue Shopping */
+
 .cart-actions a:first-child {
     background: #3498db;
 }
 
-/* Checkout */
+
 .checkout-btn {
     background: #27ae60;
 }
 
-/* Cancel */
+
 .cart-actions .cancel {
     background: #e67e22;
 }
 
 .cart-actions a:hover {
     opacity: 0.9;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-    .cart-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .cart-right {
-        width: 100%;
-        text-align: left;
-    }
-
-    .cart-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
 }

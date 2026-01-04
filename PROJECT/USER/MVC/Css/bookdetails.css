@@ -12,12 +12,26 @@ body {
 
 /* Back link */
 .back-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 20px;
     text-decoration: none;
-    color: #1642d2;
+    background: #2671f2;
+    color: #fff;
     font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
 }
+
+.back-link:hover {
+    background: #1642d2;
+    transform: translateY(-2px);
+}
+
 
 /* Container */
 .details-container {

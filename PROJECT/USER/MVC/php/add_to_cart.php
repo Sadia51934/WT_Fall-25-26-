@@ -40,7 +40,6 @@ if (!empty($_POST['id']) && !empty($_POST['title']) && isset($_POST['price'])) {
     }
 }
 
-/* Redirect to cart */
 header("Location: view_cart.php");
 exit();
 ?>

@@ -81,19 +81,35 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
     </div>
 </section>
 
+<?php
+$search = "";
+if (isset($_GET['search'])) {
+    $search = trim($_GET['search']);
+}
+?>
+
 <!-- Search Bar -->
-<section class="search-section">
+<form method="get" action="booklist.php" class="search-section">
     <div class="search-container">
-        <input type="text" placeholder="Search Books" class="search-bar">
-        <button class="search-btn">
+        <input 
+            type="text"
+            name="search"
+            placeholder="Search Books"
+            class="search-bar"
+            value="<?php echo htmlspecialchars($search); ?>"
+        >
+
+        <button type="submit" class="search-btn">
             <img src="../Picture/search.png" alt="Search" class="search-icon">
         </button>
     </div>
-</section>
+</form>
+
+
 
 <!-- Latest Arrivals -->
 <section class="book-section">
-    <h2>Latest Arrivals</h2>
+    <h2> Latest Arrivals</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $latestBooks->fetch_assoc()) { ?>
@@ -110,7 +126,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
 
 <!-- Popular Books -->
 <section class="book-section">
-    <h2>Popular Books</h2>
+    <h2> Popular Books</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $popularBooks->fetch_assoc()) { ?>
@@ -128,7 +144,7 @@ if (!empty($loggedUser) && str_starts_with($loggedUser, "@admin")) {
 
 <!-- Discount Books -->
 <section class="book-section">
-    <h2>Discount Books</h2>
+    <h2> Discount Books</h2>
     <div class="book-grid-container">
         <div class="book-grid">
             <?php while ($book = $discountBooks->fetch_assoc()) { 
